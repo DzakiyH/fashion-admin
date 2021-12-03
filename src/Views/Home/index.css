@@ -1,0 +1,37 @@
+.home {
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.home .product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.home .product .product-name {
+  width: 60%;
+  text-align: start;
+}
+
+.home .product .product-name img {
+  width: 100px;
+}
+
+.home .product .product-name .name {
+  margin-left: 20px;
+}
+
+.home .product .price {
+  width: 20%;
+}
+
+.home .product .detail {
+  width: 10%;
+}
+
+.home .product .delete {
+  width: 10%;
+}
