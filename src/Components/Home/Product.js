@@ -1,17 +1,15 @@
 import React from 'react';
 import { BiDetail, BiTrash } from 'react-icons/bi';
 
-const Product = () => {
+const Product = ({ product }) => {
   return (
     <div className='product'>
       <div className='product-name'>
-        <img
-          src='https://pbs.twimg.com/media/C2-eHBHWIAAWdq9.jpg'
-          alt='product'
-        />
-        <span className='name'>product name</span>
+        <img src={product.image} alt='product' />
+        <span className='name'>{product.title}</span>
       </div>
-      <span className='price'>price</span>
+      <div className='quantity'>{product.stock}</div>
+      <div className='price'>{product.price}</div>
       <BiDetail className='detail' />
       <BiTrash className='delete' />
     </div>
