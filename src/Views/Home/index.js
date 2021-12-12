@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { getAllProducts } from '../../States/products/action';
+import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import Product from '../../Components/Home/Product';
 import NavbarLayout from '../../Components/Layout/NavbarLayout';
 import './index.css';
 
-const Home = (props) => {
-  const { getAllProducts } = props;
+const Home = ({ getAllProducts }) => {
   const { productsShowed } = useSelector((state) => state.productsReducer);
 
   useEffect(() => {
     getAllProducts();
-  }, [getAllProducts]);
+  }, [getAllProducts, productsShowed]);
 
   return (
     <NavbarLayout>
@@ -31,12 +31,18 @@ const Home = (props) => {
             productsShowed.length !== 0 &&
             Object.keys(productsShowed).length !== 0 ? (
               productsShowed.map((product) => {
-                return <Product product={product} />;
+                return <Product product={product} key={product.id} />;
               })
             ) : (
               <div>you have no products</div>
             )}
-            <Button variant='primary'>Go somewhere</Button>
+            <div className='new-product'>
+              <Link to={{ pathname: '/new-product' }}>
+                <Button variant='primary' className='new-btn'>
+                  New Product
+                </Button>
+              </Link>
+            </div>
           </Card.Body>
         </Card>
       </div>

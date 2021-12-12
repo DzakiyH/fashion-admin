@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useRouter from 'use-react-router';
 import axios from 'axios';
 import { IKContext, IKUpload } from 'imagekitio-react';
-import { useParams } from 'react-router-dom';
 import NavbarLayout from '../../Components/Layout/NavbarLayout';
 import { Form, Button } from 'react-bootstrap';
 import './index.css';
 
-const EditProduct = () => {
-  const { id } = useParams();
+const NewProduct = () => {
   const { products } = useSelector((state) => state.productsReducer);
   const { history } = useRouter();
 
   const [productData, setProductData] = useState({
-    id: '',
     title: '',
     description: '',
     image: '',
@@ -28,28 +25,6 @@ const EditProduct = () => {
   const urlEndpoint = process.env.REACT_APP_IMAGEKIT_URL_ENDPOINT;
   const authenticationEndpoint =
     process.env.REACT_APP_IMAGEKIT_AUTHENTICATION_ENDPOINT;
-
-  useEffect(() => {
-    const product = products.find((product) => {
-      return product.id === id;
-    });
-
-    if (
-      products &&
-      products.length !== 0 &&
-      Object.keys(products).length !== 0
-    ) {
-      setProductData({
-        id,
-        title: product.title,
-        description: product.description,
-        image: product.image,
-        price: product.price,
-        stock: product.stock,
-        product_id: product.product_id,
-      });
-    }
-  }, [products, id]);
 
   const onChangeField = (e) => {
     setProductData({
@@ -73,8 +48,8 @@ const EditProduct = () => {
     e.preventDefault();
 
     try {
-      const request = await axios.put(
-        'http://localhost:8000/product/update-product',
+      const request = await axios.post(
+        'http://localhost:8000/product/new-product',
         productData,
         {
           headers: {
@@ -84,7 +59,7 @@ const EditProduct = () => {
       );
 
       if (request.data.code === 201) {
-        alert('data has been successfully updated!');
+        alert('product has been successfully created!');
         history.push('/');
       }
     } catch (error) {
@@ -123,24 +98,26 @@ const EditProduct = () => {
             </Form.Group>
 
             <Form.Group className='mb-3 image'>
-              <div className='current-image'>
-                <div>current image:</div>
-                <div
-                  className='image'
-                  style={{
-                    backgroundImage: `url("${productData.image}")`,
-                    width: '100px',
-                    height: '150px',
-                    backgroundSize: 'contain',
-                  }}
-                ></div>
-              </div>
+              {productData.image !== '' ? (
+                <div className='current-image'>
+                  <div>current image:</div>
+                  <div
+                    className='image'
+                    style={{
+                      backgroundImage: `url("${productData.image}")`,
+                      width: '100px',
+                      height: '150px',
+                      backgroundSize: 'contain',
+                    }}
+                  ></div>
+                </div>
+              ) : null}
               <IKContext
                 publicKey={publicKey}
                 urlEndpoint={urlEndpoint}
                 authenticationEndpoint={authenticationEndpoint}
               >
-                <Form.Label>update product image</Form.Label>
+                <Form.Label>choose product image</Form.Label>
                 <br />
                 <IKUpload
                   fileName='test-image.jpg'
@@ -165,7 +142,7 @@ const EditProduct = () => {
             </Form.Group>
 
             <Form.Group className='mb-3'>
-              <Form.Label>Product Price</Form.Label>
+              <Form.Label>Product Price (in $)</Form.Label>
               <Form.Control
                 type='number'
                 placeholder='product price'
@@ -181,7 +158,6 @@ const EditProduct = () => {
                 aria-label='category'
                 name='category_id'
                 onChange={onChangeField}
-                value={productData.category_id}
               >
                 <option>Choose a category</option>
                 <option value='1'>Clothes</option>
@@ -210,4 +186,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default NewProduct;

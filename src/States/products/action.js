@@ -25,3 +25,23 @@ export const getAllCategories = () => {
     });
   };
 };
+
+export const deleteProduct = (id) => {
+  const request = axios.delete(
+    `http://localhost:8000/product/delete-product/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AdminToken')}`,
+      },
+    }
+  );
+
+  return (dispatch) => {
+    request.then(() => {
+      dispatch({
+        type: 'DELETE_PRODUCTS',
+        payload: id,
+      });
+    });
+  };
+};

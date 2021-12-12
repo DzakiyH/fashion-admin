@@ -1,7 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { deleteProduct } from '../../States/products/action';
+import { Link } from 'react-router-dom';
 import { BiDetail, BiTrash } from 'react-icons/bi';
 
-const Product = ({ product }) => {
+const Product = ({ product, deleteProduct }) => {
+  const onDelete = () => {
+    alert(`are you sure to delete ${product.title}?`);
+
+    deleteProduct(product.id);
+  };
+
   return (
     <div className='product'>
       <div className='product-name'>
@@ -10,10 +19,20 @@ const Product = ({ product }) => {
       </div>
       <div className='quantity'>{product.stock}</div>
       <div className='price'>{product.price}</div>
-      <BiDetail className='detail' />
-      <BiTrash className='delete' />
+      <Link className='detail' to={{ pathname: `/edit-product/${product.id}` }}>
+        <BiDetail />
+      </Link>
+      <BiTrash
+        className='delete'
+        style={{ cursor: 'pointer', color: '#0d6efd' }}
+        onClick={onDelete}
+      />
     </div>
   );
 };
 
-export default Product;
+const mapDispatchToProps = (dispatch) => ({
+  deleteProduct: (id) => dispatch(deleteProduct(id)),
+});
+
+export default connect(null, mapDispatchToProps)(Product);

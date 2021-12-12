@@ -11,18 +11,11 @@ const productsReducer = (state = initialState, action) => {
 
   switch (type) {
     case 'GET_PRODUCTS':
-      const products = [];
-      for (let i = 0; i < payload.length; i++) {
-        const product = payload[i];
-        product.stateId = i + 1;
-        products.push(product);
-      }
-
       return {
         ...state,
         productsShowed: payload,
         shops: payload,
-        products,
+        products: payload,
       };
 
     case 'SEARCH_PRODUCTS':
@@ -43,7 +36,7 @@ const productsReducer = (state = initialState, action) => {
       }
 
     case 'ADD_PRODUCT':
-      const product = state.products.find((item) => {
+      const product = state.products.filter((item) => {
         return item.id === payload;
       });
 
@@ -52,10 +45,16 @@ const productsReducer = (state = initialState, action) => {
         product,
       };
 
-    case 'EMPTY_PRODUCT':
+    case 'DELETE_PRODUCT':
+      const newProducts = state.products.filter((product) => {
+        return product.id !== payload;
+      });
+
       return {
         ...state,
-        product: [],
+        products: newProducts,
+        shops: newProducts,
+        productsShowed: newProducts,
       };
 
     default:
