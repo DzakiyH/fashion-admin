@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import useRouter from 'use-react-router';
 import axios from 'axios';
 import NavbarLayout from '../../Components/Layout/NavbarLayout';
 import { Form, Button } from 'react-bootstrap';
 import './index.css';
 
-const Login = () => {
-  const { history } = useRouter();
-
+const Login = ({ setIsLogin }) => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -33,7 +30,7 @@ const Login = () => {
         localStorage.setItem('adminIsLogin', JSON.stringify(true));
         localStorage.setItem('AdminToken', res.data.data.access_token);
 
-        history.push('/');
+        setIsLogin(true);
       } else {
         alert('error login');
       }

@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 import { getAllProducts } from './States/products/action';
 import { connect } from 'react-redux';
 import Login from './Views/Login';
@@ -16,11 +17,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NewProduct from './Views/NewProduct';
 
 const App = ({ getAllProducts }) => {
-  const isLogin = localStorage.getItem('adminIsLogin');
+  const [isLogin, setIsLogin] = useState(true);
+  const token = localStorage.getItem('AdminToken');
 
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
+
+  useEffect(() => {
+    if (token) {
+      jwt.verify(token, process.env.REACT_APP_SECRET_TOKEN, (err, decoded) => {
+        if (err && err.message === 'jwt expired') {
+          localStorage.removeItem('AdminToken');
+          localStorage.removeItem('adminIsLogin');
+          setIsLogin(false);
+        } else if (decoded) {
+          setIsLogin(true);
+        }
+      });
+    } else {
+      localStorage.removeItem('AdminToken');
+      localStorage.removeItem('adminIsLogin');
+      setIsLogin(false);
+    }
+  }, [token]);
 
   return (
     <div className='App'>
@@ -30,16 +50,16 @@ const App = ({ getAllProducts }) => {
             {isLogin ? <Home /> : <Redirect to='/login' />}
           </Route>
           <Route path='/login' exact>
-            <Login />
+            {isLogin ? <Redirect to='/' /> : <Login setIsLogin={setIsLogin} />}
           </Route>
           <Route path='/register' exact>
             <Register />
           </Route>
           <Route path='/new-product' exact>
-            <NewProduct />
+            {isLogin ? <NewProduct /> : <Redirect to='/login' />}
           </Route>
           <Route path='/edit-product/:id' exact>
-            <EditProduct />
+            {isLogin ? <EditProduct /> : <Redirect to='/login' />}
           </Route>
         </Switch>
       </Router>
