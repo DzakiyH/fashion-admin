@@ -36,7 +36,7 @@ const Login = ({ setIsLogin }) => {
       }
     } catch (error) {
       if (error.response && error.response.data) {
-        alert(error.response.data);
+        alert(error.response.data.error);
       } else {
         alert(error.message);
       }
