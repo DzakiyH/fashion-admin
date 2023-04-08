@@ -22,9 +22,11 @@ const Login = ({ setIsLogin }) => {
 
     try {
       const res = await axios.post(
-        'http://localhost:8000/auth/admin/login',
+        `https://${process.env.REACT_APP_SERVER_HOST}/auth/admin/login`,
         loginData
       );
+
+      console.log(res.data);
 
       if (res.data.code === 200) {
         localStorage.setItem('adminIsLogin', JSON.stringify(true));
@@ -38,6 +40,7 @@ const Login = ({ setIsLogin }) => {
       if (error.response && error.response.data) {
         alert(error.response.data.error);
       } else {
+        console.log(error);
         alert(error.message);
       }
     }

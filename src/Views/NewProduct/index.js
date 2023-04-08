@@ -49,7 +49,7 @@ const NewProduct = () => {
 
     try {
       const request = await axios.post(
-        'http://localhost:8000/product/new-product',
+        `https://${process.env.REACT_APP_SERVER_HOST}/product/new-product`,
         productData,
         {
           headers: {

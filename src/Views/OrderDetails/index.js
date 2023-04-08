@@ -44,7 +44,7 @@ const OrderDetails = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:8000/order/update-order',
+        `https://${process.env.REACT_APP_SERVER_HOST}/order/update-order`,
         {
           id,
           resiNumber: resi.resiNumber,

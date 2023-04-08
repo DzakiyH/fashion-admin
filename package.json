@@ -20,14 +20,14 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
+    "serve": "^14.2.0",
     "use-react-router": "^1.0.7",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "serve -s build",
+    "build": "react-scripts build && yarn add serve",
+    "dev": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [

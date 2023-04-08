@@ -74,7 +74,7 @@ const EditProduct = () => {
 
     try {
       const request = await axios.put(
-        'http://localhost:8000/product/update-product',
+        `https://${process.env.REACT_APP_SERVER_HOST}/product/update-product`,
         productData,
         {
           headers: {
