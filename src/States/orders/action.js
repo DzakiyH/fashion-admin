@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getAllOrders = () => {
   const request = axios.get(
-    `https://${process.env.REACT_APP_SERVER_HOST}/order/all-orders`,
+    `${process.env.REACT_APP_SERVER_HOST}/order/all-orders`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('AdminToken')}`,

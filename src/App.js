@@ -30,16 +30,25 @@ const App = ({ getAllProducts, getAllOrders }) => {
 
   useEffect(() => {
     if (token) {
-      jwt.verify(token, process.env.REACT_APP_SECRET_TOKEN, (err, decoded) => {
-        if (err) {
-          localStorage.removeItem('AdminToken');
-          localStorage.removeItem('adminIsLogin');
-          alert(`there's an error in authentication`);
-          setIsLogin(false);
-        } else if (decoded) {
-          setIsLogin(true);
+      jwt.verify(
+        token,
+        process.env.REACT_APP_SECRET_TOKEN,
+        {
+          algorithms: ['HS256'],
+        },
+        (err, decoded) => {
+          if (err) {
+            console.log(token);
+            console.log(process.env.REACT_APP_SECRET_TOKEN);
+            localStorage.removeItem('AdminToken');
+            localStorage.removeItem('adminIsLogin');
+            alert(`there's an error in authentication`);
+            setIsLogin(false);
+          } else if (decoded) {
+            setIsLogin(true);
+          }
         }
-      });
+      );
     } else {
       localStorage.removeItem('AdminToken');
       localStorage.removeItem('adminIsLogin');

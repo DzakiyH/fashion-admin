@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 export const getAllProducts = () => {
-  const request = axios.get(
-    `https://${process.env.REACT_APP_SERVER_HOST}/product`
-  );
+  const request = axios.get(`${process.env.REACT_APP_SERVER_HOST}/product`);
 
   return (dispatch) => {
     request.then((response) => {
@@ -17,7 +15,7 @@ export const getAllProducts = () => {
 
 export const getAllCategories = () => {
   const request = axios.get(
-    `https://${process.env.REACT_APP_SERVER_HOST}/product/category`
+    `${process.env.REACT_APP_SERVER_HOST}/product/category`
   );
 
   return (dispatch) => {
@@ -32,7 +30,7 @@ export const getAllCategories = () => {
 
 export const deleteProduct = (id) => {
   const request = axios.delete(
-    `https://${process.env.REACT_APP_SERVER_HOST}/product/delete-product/${id}`,
+    `${process.env.REACT_APP_SERVER_HOST}/product/delete-product/${id}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('AdminToken')}`,
