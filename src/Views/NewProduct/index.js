@@ -35,6 +35,7 @@ const NewProduct = () => {
 
   const onError = (err) => {
     console.log(err);
+    alert(`there's a problem during upload`);
   };
 
   const onSuccess = (res) => {
@@ -107,7 +108,7 @@ const NewProduct = () => {
                       backgroundImage: `url("${productData.image}")`,
                       width: '100px',
                       height: '150px',
-                      backgroundSize: 'contain',
+                      backgroundSize: 'cover',
                     }}
                   ></div>
                 </div>
@@ -120,13 +121,14 @@ const NewProduct = () => {
                 <Form.Label>choose product image</Form.Label>
                 <br />
                 <IKUpload
-                  fileName='test-image.jpg'
+                  useUniqueFileName={true}
                   onError={onError}
                   onSuccess={onSuccess}
                 />
               </IKContext>
               <div className='notice'>
-                *the image you upload will appear above after some time
+                *the image you choose will appear above after some time, please
+                wait until image is shown
               </div>
             </Form.Group>
 

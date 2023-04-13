@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import NavbarLayout from '../../Components/Layout/NavbarLayout';
 import Order from '../../Components/Orders/Order';
 import { getAllOrders } from '../../States/orders/action';
@@ -34,7 +35,9 @@ const Orders = ({ getAllOrders }) => {
                 <div className='no-orders'>there's no order</div>
               ))
             }
-            <Button variant='primary'>Go somewhere</Button>
+            <Link to={{ pathname: '/' }}>
+              <Button variant='danger'>Back</Button>
+            </Link>
           </Card.Body>
         </Card>
       </div>
