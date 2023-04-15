@@ -12,7 +12,7 @@ const Home = ({ getAllProducts }) => {
 
   useEffect(() => {
     getAllProducts();
-  }, [getAllProducts, productsShowed]);
+  }, [getAllProducts]);
 
   return (
     <NavbarLayout>

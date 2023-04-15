@@ -38,8 +38,6 @@ const App = ({ getAllProducts, getAllOrders }) => {
         },
         (err, decoded) => {
           if (err) {
-            console.log(token);
-            console.log(process.env.REACT_APP_SECRET_TOKEN);
             localStorage.removeItem('AdminToken');
             localStorage.removeItem('adminIsLogin');
             alert(`there's an error in authentication`);
