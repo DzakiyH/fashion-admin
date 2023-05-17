@@ -14,3 +14,9 @@
   border-radius: 5px;
   padding: 30px 20px;
 }
+
+@media (max-width: 900px) {
+  .form {
+    width: 90% !important;
+  }
+}

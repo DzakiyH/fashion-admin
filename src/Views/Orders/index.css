@@ -47,3 +47,22 @@
 .orders .order .status {
   width: 15%;
 }
+
+@media (max-width: 900px) {
+  .orders {
+    width: 90%;
+  }
+
+  .orders .orders-header {
+    font-size: 14px;
+  }
+
+  .orders .order {
+    font-size: 12px;
+  }
+
+  .card .btn {
+    margin-top: 1em;
+    font-size: 14px;
+  }
+}
